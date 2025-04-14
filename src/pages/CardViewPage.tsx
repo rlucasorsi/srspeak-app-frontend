@@ -39,8 +39,8 @@ export default function CardViewPage() {
       </header>
 
       <div className="flex-1 flex flex-col items-center justify-center max-w-2xl mx-auto w-full">
-        <div className={`w-full aspect-square bg-card rounded-2xl flex items-center justify-center p-8 mb-8 transition-transform duration-500 perspective-1000 ${showTranslation ? 'rotate-y-180' : ''}`}>
-          <div className="relative w-full h-full [transform-style:preserve-3d]">
+        <div className="w-full aspect-square bg-card rounded-2xl flex items-center justify-center p-8 mb-8 relative perspective-1000">
+          <div className={`w-full h-full absolute [transform-style:preserve-3d] transition-all duration-500 ${showTranslation ? 'rotate-y-180' : ''}`}>
             <div className="absolute w-full h-full flex items-center justify-center backface-hidden">
               <h2 className="text-5xl font-bold">apple</h2>
             </div>

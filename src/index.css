@@ -49,3 +49,16 @@
 .input-icon {
   @apply absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground;
 }
+
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
