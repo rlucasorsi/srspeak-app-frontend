@@ -5,6 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
+import WelcomePage from "./pages/WelcomePage";
 import DeckListPage from "./pages/DeckListPage";
 import CardViewPage from "./pages/CardViewPage";
 
@@ -18,6 +19,7 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LoginPage />} />
+          <Route path="/welcome" element={<WelcomePage />} />
           <Route path="/decks" element={<DeckListPage />} />
           <Route path="/decks/:deckId" element={<CardViewPage />} />
         </Routes>
