@@ -10,10 +10,12 @@ export default function CardViewPage() {
   const navigate = useNavigate();
   const [currentCard, setCurrentCard] = useState(1);
   const [showTranslation, setShowTranslation] = useState(false);
+  const [reviewOriginal, setReviewOriginal] = useState(false);
   const isMobile = useIsMobile();
 
   const handleDifficulty = (difficulty: string) => {
     setShowTranslation(false);
+    setReviewOriginal(false);
     setCurrentCard(prev => prev + 1);
   };
 
@@ -47,11 +49,11 @@ export default function CardViewPage() {
         </div>
       </header>
 
-      <div className="flex-1 flex flex-col items-center justify-center max-w-2xl mx-auto w-full gap-2">
+      <div className="flex-1 flex flex-col items-center justify-center max-w-2xl mx-auto w-full gap-1">
         <div className="w-full aspect-video sm:aspect-[4/3] bg-card rounded-2xl flex items-center justify-center p-8 relative overflow-hidden">
           <div 
             className={`w-full h-full absolute transition-transform duration-500 ${
-              showTranslation 
+              showTranslation && !reviewOriginal
                 ? '-translate-y-full' 
                 : 'translate-y-0'
             }`}
@@ -62,7 +64,7 @@ export default function CardViewPage() {
           </div>
           <div 
             className={`w-full h-full absolute transition-transform duration-500 ${
-              showTranslation 
+              showTranslation && !reviewOriginal
                 ? 'translate-y-0' 
                 : 'translate-y-full'
             }`}
@@ -75,24 +77,33 @@ export default function CardViewPage() {
 
         {!showTranslation ? (
           <Button 
-            className="w-full py-3 text-lg" 
+            className="w-full py-3 text-lg mt-1" 
             onClick={() => setShowTranslation(true)}
           >
             Mostrar resposta
           </Button>
         ) : (
-          <div className="w-full grid grid-cols-2 gap-2">
-            {difficultyButtons.map((btn) => (
-              <Button 
-                key={btn.label}
-                className={`${btn.color} rounded-xl flex items-center justify-center gap-2 p-3`}
-                onClick={() => handleDifficulty(btn.label.toLowerCase())}
-              >
-                {btn.icon}
-                {!isMobile && <span>{btn.label}</span>}
-              </Button>
-            ))}
-          </div>
+          <>
+            <div className="w-full grid grid-cols-2 gap-2 mt-1">
+              {difficultyButtons.map((btn) => (
+                <Button 
+                  key={btn.label}
+                  className={`${btn.color} rounded-xl flex items-center justify-center gap-2 p-3`}
+                  onClick={() => handleDifficulty(btn.label.toLowerCase())}
+                >
+                  {btn.icon}
+                  {!isMobile && <span>{btn.label}</span>}
+                </Button>
+              ))}
+            </div>
+            <Button
+              variant="link"
+              className="text-muted-foreground text-sm mt-1"
+              onClick={() => setReviewOriginal(prev => !prev)}
+            >
+              {reviewOriginal ? "Ver tradução" : "Rever frase em inglês"}
+            </Button>
+          </>
         )}
       </div>
     </div>

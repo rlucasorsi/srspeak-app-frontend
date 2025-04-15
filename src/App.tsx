@@ -8,6 +8,9 @@ import LoginPage from "./pages/LoginPage";
 import WelcomePage from "./pages/WelcomePage";
 import DeckListPage from "./pages/DeckListPage";
 import CardViewPage from "./pages/CardViewPage";
+import ModuleListPage from "./pages/ModuleListPage";
+import ModuleFormPage from "./pages/ModuleFormPage";
+import ModuleStudentsPage from "./pages/ModuleStudentsPage";
 
 const queryClient = new QueryClient();
 
@@ -22,6 +25,10 @@ const App = () => (
           <Route path="/welcome" element={<WelcomePage />} />
           <Route path="/decks" element={<DeckListPage />} />
           <Route path="/decks/:deckId" element={<CardViewPage />} />
+          <Route path="/modules" element={<ModuleListPage />} />
+          <Route path="/modules/:moduleId" element={<ModuleFormPage />} />
+          <Route path="/modules/:moduleId/edit" element={<ModuleFormPage />} />
+          <Route path="/modules/:moduleId/students" element={<ModuleStudentsPage />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
