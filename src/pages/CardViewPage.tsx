@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useParams, useNavigate } from "react-router-dom";
-import { ThumbsUp, ThumbsDown, Smile, Frown, ArrowLeft } from "lucide-react";
+import { ArrowLeft, SmilePlus, Smile, Meh, Frown } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 export default function CardViewPage() {
@@ -18,10 +18,10 @@ export default function CardViewPage() {
   };
 
   const difficultyButtons = [
-    { label: "Muito Fácil", icon: <Smile className="h-6 w-6" />, color: "bg-emerald-500 hover:bg-emerald-600" },
-    { label: "Fácil", icon: <ThumbsUp className="h-6 w-6" />, color: "bg-green-500 hover:bg-green-600" },
-    { label: "Difícil", icon: <ThumbsDown className="h-6 w-6" />, color: "bg-orange-500 hover:bg-orange-600" },
-    { label: "Não Lembro", icon: <Frown className="h-6 w-6" />, color: "bg-red-500 hover:bg-red-600" },
+    { label: "Não lembro", icon: <Frown className="h-6 w-6" />, color: "bg-red-500 hover:bg-red-600 hover:shadow-lg hover:-translate-y-0.5 transition-all" },
+    { label: "Difícil", icon: <Meh className="h-6 w-6" />, color: "bg-orange-500 hover:bg-orange-600 hover:shadow-lg hover:-translate-y-0.5 transition-all" },
+    { label: "Fácil", icon: <Smile className="h-6 w-6" />, color: "bg-green-500 hover:bg-green-600 hover:shadow-lg hover:-translate-y-0.5 transition-all" },
+    { label: "Muito Fácil", icon: <SmilePlus className="h-6 w-6" />, color: "bg-emerald-500 hover:bg-emerald-600 hover:shadow-lg hover:-translate-y-0.5 transition-all" },
   ];
 
   return (
@@ -47,55 +47,49 @@ export default function CardViewPage() {
         </div>
       </header>
 
-      <div className="flex-1 flex flex-col items-center justify-center max-w-2xl mx-auto w-full gap-3">
-        <div className="w-full aspect-[4/3] sm:aspect-square bg-card rounded-2xl flex items-center justify-center p-8 relative overflow-hidden">
+      <div className="flex-1 flex flex-col items-center justify-center max-w-2xl mx-auto w-full gap-2">
+        <div className="w-full aspect-video sm:aspect-[4/3] bg-card rounded-2xl flex items-center justify-center p-8 relative overflow-hidden">
           <div 
-            className={`w-full h-full absolute transition-all duration-500 ${
+            className={`w-full h-full absolute transition-transform duration-500 ${
               showTranslation 
-                ? '-translate-y-full opacity-0' 
-                : 'translate-y-0 opacity-100'
+                ? '-translate-y-full' 
+                : 'translate-y-0'
             }`}
           >
             <div className="w-full h-full flex items-center justify-center">
-              <h2 className="text-4xl sm:text-5xl font-bold">apple</h2>
+              <h2 className="text-4xl sm:text-5xl font-bold">I am a frontend developer</h2>
             </div>
           </div>
           <div 
-            className={`w-full h-full absolute transition-all duration-500 ${
+            className={`w-full h-full absolute transition-transform duration-500 ${
               showTranslation 
-                ? 'translate-y-0 opacity-100' 
-                : 'translate-y-full opacity-0'
+                ? 'translate-y-0' 
+                : 'translate-y-full'
             }`}
           >
             <div className="w-full h-full flex items-center justify-center">
-              <h2 className="text-4xl sm:text-5xl font-bold">maçã</h2>
+              <h2 className="text-4xl sm:text-5xl font-bold">Eu sou um desenvolvedor frontend</h2>
             </div>
           </div>
         </div>
 
         {!showTranslation ? (
           <Button 
-            className="w-full py-4 text-lg" 
+            className="w-full py-3 text-lg" 
             onClick={() => setShowTranslation(true)}
           >
             Mostrar resposta
           </Button>
         ) : (
-          <div className="w-full grid grid-cols-2 sm:grid-cols-4 gap-2">
+          <div className="w-full grid grid-cols-2 gap-2">
             {difficultyButtons.map((btn) => (
               <Button 
                 key={btn.label}
-                className={`${btn.color} ${isMobile ? 'p-3' : 'py-4 text-lg'}`}
+                className={`${btn.color} rounded-xl flex items-center justify-center gap-2 p-3`}
                 onClick={() => handleDifficulty(btn.label.toLowerCase())}
               >
-                {isMobile ? (
-                  btn.icon
-                ) : (
-                  <>
-                    {btn.icon}
-                    <span>{btn.label}</span>
-                  </>
-                )}
+                {btn.icon}
+                {!isMobile && <span>{btn.label}</span>}
               </Button>
             ))}
           </div>

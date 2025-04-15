@@ -1,6 +1,8 @@
-
-import { ChevronRight } from "lucide-react";
+import { useState } from "react";
+import { ChevronRight, ChevronDown, ChevronUp } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface Deck {
   id: string;
@@ -36,10 +38,13 @@ const categories: DeckCategory[] = [
 
 export default function DeckListPage() {
   const navigate = useNavigate();
+  const [showAllModules, setShowAllModules] = useState(false);
+  const mainDeck = categories[0].decks[0];
+  const otherCategories = categories.slice(1);
 
   return (
     <div className="min-h-screen p-4 bg-background">
-      <div className="max-w-2xl mx-auto">
+      <div className="max-w-2xl mx-auto space-y-6">
         <header className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-4">
             <img 
@@ -47,34 +52,67 @@ export default function DeckListPage() {
               alt="SRSpeak Logo" 
               className="h-12 w-12" 
             />
-            <h1 className="text-2xl font-bold">Escolha um baralho para estudar</h1>
+            <h1 className="text-2xl font-bold">Meu baralho</h1>
           </div>
         </header>
 
-        <div className="space-y-6">
-          {categories.map((category) => (
-            <div key={category.id} className="space-y-3">
-              <h2 className="text-xl font-semibold">{category.title}</h2>
-              <div className="space-y-2">
-                {category.decks.map((deck) => (
-                  <button
-                    key={deck.id}
-                    onClick={() => navigate(`/decks/${deck.id}`)}
-                    className="w-full p-4 bg-card rounded-xl flex items-center justify-between card-hover border border-border"
-                  >
-                    <div className="text-left">
-                      <h3 className="font-medium">{deck.title}</h3>
-                      <p className="text-sm text-muted-foreground">
-                        {deck.cardCount} cards
-                      </p>
-                    </div>
-                    <ChevronRight className="text-muted-foreground" />
-                  </button>
-                ))}
-              </div>
+        {/* Main Deck */}
+        <div className="space-y-2">
+          <button
+            onClick={() => navigate(`/decks/${mainDeck.id}`)}
+            className="w-full p-6 bg-primary/10 rounded-xl flex items-center justify-between card-hover border border-primary/20"
+          >
+            <div className="text-left">
+              <h3 className="text-lg font-semibold text-primary">{mainDeck.title}</h3>
+              <p className="text-sm text-muted-foreground">
+                {mainDeck.cardCount} cards
+              </p>
             </div>
-          ))}
+            <ChevronRight className="text-primary" />
+          </button>
         </div>
+
+        {/* Toggle Other Modules */}
+        <Button
+          variant="outline"
+          className="w-full"
+          onClick={() => setShowAllModules(!showAllModules)}
+        >
+          <span>
+            {showAllModules ? "Ocultar módulos" : "Exibir todos os módulos"}
+          </span>
+          {showAllModules ? <ChevronUp className="ml-2" /> : <ChevronDown className="ml-2" />}
+        </Button>
+
+        {/* Other Categories */}
+        {showAllModules && (
+          <ScrollArea className="h-[400px] rounded-md border">
+            <div className="p-4 space-y-6">
+              {otherCategories.map((category) => (
+                <div key={category.id} className="space-y-3">
+                  <h2 className="text-xl font-semibold">{category.title}</h2>
+                  <div className="space-y-2">
+                    {category.decks.map((deck) => (
+                      <button
+                        key={deck.id}
+                        onClick={() => navigate(`/decks/${deck.id}`)}
+                        className="w-full p-4 bg-card rounded-xl flex items-center justify-between card-hover border border-border"
+                      >
+                        <div className="text-left">
+                          <h3 className="font-medium">{deck.title}</h3>
+                          <p className="text-sm text-muted-foreground">
+                            {deck.cardCount} cards
+                          </p>
+                        </div>
+                        <ChevronRight className="text-muted-foreground" />
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </ScrollArea>
+        )}
       </div>
     </div>
   );
