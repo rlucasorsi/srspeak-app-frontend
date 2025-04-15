@@ -2,22 +2,31 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useParams, useNavigate } from "react-router-dom";
-import { Check, X, Minus, ArrowLeft } from "lucide-react";
+import { ThumbsUp, ThumbsDown, Smile, Frown, ArrowLeft } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 export default function CardViewPage() {
   const { deckId } = useParams();
   const navigate = useNavigate();
   const [currentCard, setCurrentCard] = useState(1);
   const [showTranslation, setShowTranslation] = useState(false);
+  const isMobile = useIsMobile();
 
   const handleDifficulty = (difficulty: string) => {
     setShowTranslation(false);
     setCurrentCard(prev => prev + 1);
   };
 
+  const difficultyButtons = [
+    { label: "Muito Fácil", icon: <Smile className="h-6 w-6" />, color: "bg-emerald-500 hover:bg-emerald-600" },
+    { label: "Fácil", icon: <ThumbsUp className="h-6 w-6" />, color: "bg-green-500 hover:bg-green-600" },
+    { label: "Difícil", icon: <ThumbsDown className="h-6 w-6" />, color: "bg-orange-500 hover:bg-orange-600" },
+    { label: "Não Lembro", icon: <Frown className="h-6 w-6" />, color: "bg-red-500 hover:bg-red-600" },
+  ];
+
   return (
     <div className="min-h-screen p-4 flex flex-col">
-      <header className="max-w-2xl mx-auto w-full mb-4">
+      <header className="max-w-2xl mx-auto w-full mb-2">
         <div className="flex items-center justify-between gap-2">
           <div className="flex items-center gap-2">
             <img 
@@ -38,56 +47,57 @@ export default function CardViewPage() {
         </div>
       </header>
 
-      <div className="flex-1 flex flex-col items-center justify-center max-w-2xl mx-auto w-full">
-        <div className="w-full aspect-square bg-card rounded-2xl flex items-center justify-center p-8 mb-8 relative perspective-1000">
-          <div className={`w-full h-full absolute [transform-style:preserve-3d] transition-all duration-500 ${showTranslation ? 'rotate-y-180' : ''}`}>
-            <div className="absolute w-full h-full flex items-center justify-center backface-hidden">
-              <h2 className="text-5xl font-bold">apple</h2>
+      <div className="flex-1 flex flex-col items-center justify-center max-w-2xl mx-auto w-full gap-3">
+        <div className="w-full aspect-[4/3] sm:aspect-square bg-card rounded-2xl flex items-center justify-center p-8 relative overflow-hidden">
+          <div 
+            className={`w-full h-full absolute transition-all duration-500 ${
+              showTranslation 
+                ? '-translate-y-full opacity-0' 
+                : 'translate-y-0 opacity-100'
+            }`}
+          >
+            <div className="w-full h-full flex items-center justify-center">
+              <h2 className="text-4xl sm:text-5xl font-bold">apple</h2>
             </div>
-            <div className="absolute w-full h-full flex items-center justify-center rotate-y-180 backface-hidden">
-              <h2 className="text-5xl font-bold">maçã</h2>
+          </div>
+          <div 
+            className={`w-full h-full absolute transition-all duration-500 ${
+              showTranslation 
+                ? 'translate-y-0 opacity-100' 
+                : 'translate-y-full opacity-0'
+            }`}
+          >
+            <div className="w-full h-full flex items-center justify-center">
+              <h2 className="text-4xl sm:text-5xl font-bold">maçã</h2>
             </div>
           </div>
         </div>
 
         {!showTranslation ? (
           <Button 
-            className="w-full py-6 text-xl mb-8" 
+            className="w-full py-4 text-lg" 
             onClick={() => setShowTranslation(true)}
           >
             Mostrar resposta
           </Button>
         ) : (
-          <div className="w-full space-y-3">
-            <p className="text-lg text-center mb-4">Escolha o nível de dificuldade</p>
-            
-            <Button 
-              className="w-full py-6 text-lg bg-emerald-500 hover:bg-emerald-600"
-              onClick={() => handleDifficulty("muito-facil")}
-            >
-              <Check className="mr-2" /> Muito Fácil
-            </Button>
-            
-            <Button 
-              className="w-full py-6 text-lg bg-green-500 hover:bg-green-600"
-              onClick={() => handleDifficulty("facil")}
-            >
-              <Check className="mr-2" /> Fácil
-            </Button>
-            
-            <Button 
-              className="w-full py-6 text-lg bg-orange-500 hover:bg-orange-600"
-              onClick={() => handleDifficulty("dificil")}
-            >
-              <Minus className="mr-2" /> Difícil
-            </Button>
-            
-            <Button 
-              className="w-full py-6 text-lg bg-red-500 hover:bg-red-600"
-              onClick={() => handleDifficulty("nao-lembro")}
-            >
-              <X className="mr-2" /> Não Lembro
-            </Button>
+          <div className="w-full grid grid-cols-2 sm:grid-cols-4 gap-2">
+            {difficultyButtons.map((btn) => (
+              <Button 
+                key={btn.label}
+                className={`${btn.color} ${isMobile ? 'p-3' : 'py-4 text-lg'}`}
+                onClick={() => handleDifficulty(btn.label.toLowerCase())}
+              >
+                {isMobile ? (
+                  btn.icon
+                ) : (
+                  <>
+                    {btn.icon}
+                    <span>{btn.label}</span>
+                  </>
+                )}
+              </Button>
+            ))}
           </div>
         )}
       </div>
