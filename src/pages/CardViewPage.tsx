@@ -52,25 +52,25 @@ export default function CardViewPage() {
       <div className="flex-1 flex flex-col items-center justify-center max-w-2xl mx-auto w-full gap-1">
         <div className="w-full aspect-video sm:aspect-[4/3] bg-card rounded-2xl flex items-center justify-center p-8 relative overflow-hidden">
           <div 
-            className={`w-full h-full absolute transition-transform duration-500 ${
+            className={`w-full h-full absolute transition-transform duration-500 flex items-center justify-center ${
               showTranslation && !reviewOriginal
                 ? '-translate-y-full' 
                 : 'translate-y-0'
             }`}
           >
-            <div className="w-full h-full flex items-center justify-center">
-              <h2 className="text-4xl sm:text-5xl font-bold">I am a frontend developer</h2>
+            <div className="w-full flex items-center justify-center text-center">
+              <h2 className="text-4xl sm:text-5xl font-bold text-center w-full">{/* English text */}I am a frontend developer</h2>
             </div>
           </div>
           <div 
-            className={`w-full h-full absolute transition-transform duration-500 ${
+            className={`w-full h-full absolute transition-transform duration-500 flex items-center justify-center ${
               showTranslation && !reviewOriginal
                 ? 'translate-y-0' 
                 : 'translate-y-full'
             }`}
           >
-            <div className="w-full h-full flex items-center justify-center">
-              <h2 className="text-4xl sm:text-5xl font-bold">Eu sou um desenvolvedor frontend</h2>
+            <div className="w-full flex items-center justify-center text-center">
+              <h2 className="text-4xl sm:text-5xl font-bold text-center w-full">{/* Portuguese text */}Eu sou um desenvolvedor frontend</h2>
             </div>
           </div>
         </div>
