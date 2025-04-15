@@ -20,10 +20,10 @@ export default function CardViewPage() {
   };
 
   const difficultyButtons = [
-    { label: "Não lembro", icon: <Frown className="h-6 w-6" />, color: "bg-red-500 hover:bg-red-600 hover:shadow-lg hover:-translate-y-0.5 transition-all" },
+    { label: "Muito Fácil", icon: <SmilePlus className="h-6 w-6" />, color: "bg-green-500 hover:bg-green-600 hover:shadow-lg hover:-translate-y-0.5 transition-all" },
+    { label: "Fácil", icon: <Smile className="h-6 w-6" />, color: "bg-emerald-500 hover:bg-emerald-600 hover:shadow-lg hover:-translate-y-0.5 transition-all" },
     { label: "Difícil", icon: <Meh className="h-6 w-6" />, color: "bg-orange-500 hover:bg-orange-600 hover:shadow-lg hover:-translate-y-0.5 transition-all" },
-    { label: "Fácil", icon: <Smile className="h-6 w-6" />, color: "bg-green-500 hover:bg-green-600 hover:shadow-lg hover:-translate-y-0.5 transition-all" },
-    { label: "Muito Fácil", icon: <SmilePlus className="h-6 w-6" />, color: "bg-emerald-500 hover:bg-emerald-600 hover:shadow-lg hover:-translate-y-0.5 transition-all" },
+    { label: "Não lembro", icon: <Frown className="h-6 w-6" />, color: "bg-red-500 hover:bg-red-600 hover:shadow-lg hover:-translate-y-0.5 transition-all" },
   ];
 
   return (
@@ -83,8 +83,16 @@ export default function CardViewPage() {
             Mostrar resposta
           </Button>
         ) : (
-          <>
-            <div className="w-full grid grid-cols-2 gap-2 mt-1">
+          <div className="w-full flex flex-col gap-2 mt-1">
+            <Button
+              variant="link"
+              className="text-muted-foreground text-sm"
+              onClick={() => setReviewOriginal(prev => !prev)}
+            >
+              {reviewOriginal ? "Ver tradução" : "Rever frase em inglês"}
+            </Button>
+
+            <div className="w-full grid grid-cols-2 gap-2">
               {difficultyButtons.map((btn) => (
                 <Button 
                   key={btn.label}
@@ -96,14 +104,7 @@ export default function CardViewPage() {
                 </Button>
               ))}
             </div>
-            <Button
-              variant="link"
-              className="text-muted-foreground text-sm mt-1"
-              onClick={() => setReviewOriginal(prev => !prev)}
-            >
-              {reviewOriginal ? "Ver tradução" : "Rever frase em inglês"}
-            </Button>
-          </>
+          </div>
         )}
       </div>
     </div>
