@@ -4,20 +4,41 @@ import { Button } from "@/components/ui/button";
 import { useParams, useNavigate } from "react-router-dom";
 import { ArrowLeft, SmilePlus, Smile, Meh, Frown } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useCards } from "@/hooks/api/useCards";
 
 export default function CardViewPage() {
   const { deckId } = useParams();
   const navigate = useNavigate();
-  const [currentCard, setCurrentCard] = useState(1);
+  const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [showTranslation, setShowTranslation] = useState(false);
   const [reviewOriginal, setReviewOriginal] = useState(false);
   const isMobile = useIsMobile();
 
+  const { data: cards, isLoading } = useCards(deckId || '');
+
+  const currentCard = cards?.[currentCardIndex];
+  const totalCards = cards?.length || 0;
+
   const handleDifficulty = (difficulty: string) => {
+    // In a real application, you might want to send this difficulty rating to your backend
     setShowTranslation(false);
     setReviewOriginal(false);
-    setCurrentCard(prev => prev + 1);
+    
+    if (currentCardIndex < (totalCards - 1)) {
+      setCurrentCardIndex(prev => prev + 1);
+    } else {
+      // Redirect to deck list or show completion screen
+      navigate("/decks");
+    }
   };
+
+  if (isLoading) {
+    return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
+  }
+
+  if (!currentCard) {
+    return <div className="min-h-screen flex items-center justify-center">No cards found</div>;
+  }
 
   const difficultyButtons = [
     { label: "Muito Fácil", icon: <SmilePlus className="h-6 w-6" />, color: "bg-green-500 hover:bg-green-600 hover:shadow-lg hover:-translate-y-0.5 transition-all" },
@@ -37,7 +58,9 @@ export default function CardViewPage() {
               className="h-8 w-8"
               data-cy="logo-image"
             />
-            <h1 className="text-xl font-semibold" data-cy="card-progress">1 de 10</h1>
+            <h1 className="text-xl font-semibold" data-cy="card-progress">
+              {currentCardIndex + 1} de {totalCards}
+            </h1>
           </div>
           <Button
             variant="ghost"
@@ -63,7 +86,7 @@ export default function CardViewPage() {
           >
             <div className="w-full flex items-center justify-center text-center">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center w-full" data-cy="english-text">
-                I am a frontend developer
+                {currentCard.english}
               </h2>
             </div>
           </div>
@@ -77,7 +100,7 @@ export default function CardViewPage() {
           >
             <div className="w-full flex items-center justify-center text-center">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center w-full" data-cy="portuguese-text">
-                Eu sou um desenvolvedor frontend
+                {currentCard.portuguese}
               </h2>
             </div>
           </div>
