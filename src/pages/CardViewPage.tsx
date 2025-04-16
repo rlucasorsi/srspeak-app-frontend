@@ -1,10 +1,10 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useParams, useNavigate } from "react-router-dom";
 import { ArrowLeft, SmilePlus, Smile, Meh, Frown } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useCards } from "@/hooks/api/useCards";
+import { Spinner } from "@/components/ui/spinner";
 
 export default function CardViewPage() {
   const { deckId } = useParams();
@@ -20,20 +20,22 @@ export default function CardViewPage() {
   const totalCards = cards?.length || 0;
 
   const handleDifficulty = (difficulty: string) => {
-    // In a real application, you might want to send this difficulty rating to your backend
     setShowTranslation(false);
     setReviewOriginal(false);
     
     if (currentCardIndex < (totalCards - 1)) {
       setCurrentCardIndex(prev => prev + 1);
     } else {
-      // Redirect to deck list or show completion screen
       navigate("/decks");
     }
   };
 
   if (isLoading) {
-    return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Spinner size={32} className="text-primary" />
+      </div>
+    );
   }
 
   if (!currentCard) {
