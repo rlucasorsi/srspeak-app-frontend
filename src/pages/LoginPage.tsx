@@ -16,17 +16,18 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-background">
+    <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-background" data-cy="login-page">
       <div className="w-full max-w-md space-y-8">
         <div className="flex flex-col items-center">
           <img src="/lovable-uploads/c6fb0acf-76a6-4bb5-b8e0-c7bfefa1c03a.png" 
                alt="SRSpeak Logo" 
-               className="h-32 w-32 mb-4" />
+               className="h-32 w-32 mb-4"
+               data-cy="login-logo" />
         </div>
         
-        <h1 className="text-3xl font-bold text-center">Faça login</h1>
+        <h1 className="text-3xl font-bold text-center" data-cy="login-title">Faça login</h1>
         
-        <form onSubmit={handleLogin} className="mt-8 space-y-4">
+        <form onSubmit={handleLogin} className="mt-8 space-y-4" data-cy="login-form">
           <div className="relative">
             <Mail className="input-icon" size={20} />
             <Input
@@ -36,6 +37,7 @@ export default function LoginPage() {
               onChange={(e) => setEmail(e.target.value)}
               className="pl-10"
               required
+              data-cy="login-email-input"
             />
           </div>
           
@@ -48,16 +50,17 @@ export default function LoginPage() {
               onChange={(e) => setPassword(e.target.value)}
               className="pl-10"
               required
+              data-cy="login-password-input"
             />
           </div>
           
-          <Button type="submit" className="w-full py-6 text-lg bg-[#00A5A5] hover:bg-[#008585]">
+          <Button type="submit" className="w-full py-6 text-lg bg-[#00A5A5] hover:bg-[#008585]" data-cy="login-submit-button">
             Entrar
           </Button>
         </form>
         
         <p className="text-center mt-4">
-          <a href="#" className="text-[#00A5A5] hover:underline">
+          <a href="#" className="text-[#00A5A5] hover:underline" data-cy="forgot-password-link">
             Esqueceu a senha?
           </a>
         </p>

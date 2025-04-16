@@ -43,28 +43,29 @@ export default function DeckListPage() {
   const otherCategories = categories.slice(1);
 
   return (
-    <div className="min-h-screen p-4 bg-background">
+    <div className="min-h-screen p-4 bg-background" data-cy="deck-list-page">
       <div className="max-w-2xl mx-auto space-y-6">
         <header className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-4">
             <img 
               src="/lovable-uploads/c6fb0acf-76a6-4bb5-b8e0-c7bfefa1c03a.png" 
               alt="SRSpeak Logo" 
-              className="h-12 w-12" 
+              className="h-12 w-12"
+              data-cy="deck-list-logo"
             />
-            <h1 className="text-2xl font-bold">Meu baralho</h1>
+            <h1 className="text-2xl font-bold" data-cy="deck-list-title">Meu baralho</h1>
           </div>
         </header>
 
-        {/* Main Deck */}
         <div className="space-y-2">
           <button
             onClick={() => navigate(`/decks/${mainDeck.id}`)}
             className="w-full p-6 bg-primary/10 rounded-xl flex items-center justify-between card-hover border border-primary/20"
+            data-cy="main-deck-button"
           >
             <div className="text-left">
-              <h3 className="text-lg font-semibold text-primary">{mainDeck.title}</h3>
-              <p className="text-sm text-muted-foreground">
+              <h3 className="text-lg font-semibold text-primary" data-cy="main-deck-title">{mainDeck.title}</h3>
+              <p className="text-sm text-muted-foreground" data-cy="main-deck-count">
                 {mainDeck.cardCount} cards
               </p>
             </div>
@@ -72,11 +73,11 @@ export default function DeckListPage() {
           </button>
         </div>
 
-        {/* Toggle Other Modules */}
         <Button
           variant="outline"
           className="w-full"
           onClick={() => setShowAllModules(!showAllModules)}
+          data-cy="toggle-modules-button"
         >
           <span>
             {showAllModules ? "Ocultar módulos" : "Exibir todos os módulos"}
@@ -84,23 +85,23 @@ export default function DeckListPage() {
           {showAllModules ? <ChevronUp className="ml-2" /> : <ChevronDown className="ml-2" />}
         </Button>
 
-        {/* Other Categories */}
         {showAllModules && (
-          <ScrollArea className="h-[400px] rounded-md border">
+          <ScrollArea className="h-[400px] rounded-md border" data-cy="modules-scroll-area">
             <div className="p-4 space-y-6">
               {otherCategories.map((category) => (
-                <div key={category.id} className="space-y-3">
-                  <h2 className="text-xl font-semibold">{category.title}</h2>
+                <div key={category.id} className="space-y-3" data-cy={`category-${category.id}`}>
+                  <h2 className="text-xl font-semibold" data-cy={`category-title-${category.id}`}>{category.title}</h2>
                   <div className="space-y-2">
                     {category.decks.map((deck) => (
                       <button
                         key={deck.id}
                         onClick={() => navigate(`/decks/${deck.id}`)}
                         className="w-full p-4 bg-card rounded-xl flex items-center justify-between card-hover border border-border"
+                        data-cy={`deck-button-${deck.id}`}
                       >
                         <div className="text-left">
-                          <h3 className="font-medium">{deck.title}</h3>
-                          <p className="text-sm text-muted-foreground">
+                          <h3 className="font-medium" data-cy={`deck-title-${deck.id}`}>{deck.title}</h3>
+                          <p className="text-sm text-muted-foreground" data-cy={`deck-count-${deck.id}`}>
                             {deck.cardCount} cards
                           </p>
                         </div>
