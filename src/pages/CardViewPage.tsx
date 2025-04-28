@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useParams, useNavigate } from "react-router-dom";
@@ -5,6 +6,7 @@ import { ArrowLeft, SmilePlus, Smile, Meh, Frown } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useCards } from "@/hooks/api/useCards";
 import { Spinner } from "@/components/ui/spinner";
+import { StudyCompleteScreen } from "@/components/StudyCompleteScreen";
 
 export default function CardViewPage() {
   const { deckId } = useParams();
@@ -12,21 +14,41 @@ export default function CardViewPage() {
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [showTranslation, setShowTranslation] = useState(false);
   const [reviewOriginal, setReviewOriginal] = useState(false);
+  const [stats, setStats] = useState({
+    veryEasy: 0,
+    easy: 0,
+    hard: 0,
+    forgot: 0
+  });
   const isMobile = useIsMobile();
 
   const { data: cards, isLoading } = useCards(deckId || '');
 
   const currentCard = cards?.[currentCardIndex];
   const totalCards = cards?.length || 0;
+  const isStudyComplete = currentCardIndex >= totalCards;
 
   const handleDifficulty = (difficulty: string) => {
     setShowTranslation(false);
     setReviewOriginal(false);
     
+    setStats(prev => {
+      switch (difficulty) {
+        case "muito-facil":
+          return { ...prev, veryEasy: prev.veryEasy + 1 };
+        case "facil":
+          return { ...prev, easy: prev.easy + 1 };
+        case "dificil":
+          return { ...prev, hard: prev.hard + 1 };
+        case "nao-lembro":
+          return { ...prev, forgot: prev.forgot + 1 };
+        default:
+          return prev;
+      }
+    });
+
     if (currentCardIndex < (totalCards - 1)) {
       setCurrentCardIndex(prev => prev + 1);
-    } else {
-      navigate("/decks");
     }
   };
 
@@ -38,15 +60,19 @@ export default function CardViewPage() {
     );
   }
 
-  if (!currentCard) {
+  if (!currentCard && !isStudyComplete) {
     return <div className="min-h-screen flex items-center justify-center">No cards found</div>;
   }
 
+  if (isStudyComplete) {
+    return <StudyCompleteScreen stats={stats} />;
+  }
+
   const difficultyButtons = [
-    { label: "Muito Fácil", icon: <SmilePlus className="h-6 w-6" />, color: "bg-green-500 hover:bg-green-600 hover:shadow-lg hover:-translate-y-0.5 transition-all" },
-    { label: "Fácil", icon: <Smile className="h-6 w-6" />, color: "bg-emerald-500 hover:bg-emerald-600 hover:shadow-lg hover:-translate-y-0.5 transition-all" },
-    { label: "Difícil", icon: <Meh className="h-6 w-6" />, color: "bg-orange-500 hover:bg-orange-600 hover:shadow-lg hover:-translate-y-0.5 transition-all" },
-    { label: "Não lembro", icon: <Frown className="h-6 w-6" />, color: "bg-red-500 hover:bg-red-600 hover:shadow-lg hover:-translate-y-0.5 transition-all" },
+    { label: "Muito Fácil", value: "muito-facil", icon: <SmilePlus className="h-6 w-6" />, color: "bg-green-500 hover:bg-green-600 hover:shadow-lg hover:-translate-y-0.5 transition-all" },
+    { label: "Fácil", value: "facil", icon: <Smile className="h-6 w-6" />, color: "bg-emerald-500 hover:bg-emerald-600 hover:shadow-lg hover:-translate-y-0.5 transition-all" },
+    { label: "Difícil", value: "dificil", icon: <Meh className="h-6 w-6" />, color: "bg-orange-500 hover:bg-orange-600 hover:shadow-lg hover:-translate-y-0.5 transition-all" },
+    { label: "Não lembro", value: "nao-lembro", icon: <Frown className="h-6 w-6" />, color: "bg-red-500 hover:bg-red-600 hover:shadow-lg hover:-translate-y-0.5 transition-all" },
   ];
 
   return (
