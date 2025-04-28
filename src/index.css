@@ -13,7 +13,7 @@
     --popover-foreground: 215 25% 10%;
     --primary: 187 45% 32%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 217 45% 15%;
+    --secondary: 187 45% 32%;
     --secondary-foreground: 215 25% 98%;
     --muted: 217 45% 15%;
     --muted-foreground: 215 25% 65%;
@@ -51,6 +51,5 @@
 }
 
 .glass-card {
-  @apply bg-white backdrop-blur-md border border-white/20 shadow-lg;
+  @apply bg-white rounded-xl shadow-lg border border-white/20;
 }
-

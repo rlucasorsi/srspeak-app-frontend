@@ -53,14 +53,14 @@ export default function DeckListPage() {
               className="h-12 w-12"
               data-cy="deck-list-logo"
             />
-            <h1 className="text-2xl font-bold" data-cy="deck-list-title">Meu baralho</h1>
+            <h1 className="text-2xl font-bold text-white" data-cy="deck-list-title">Meu baralho</h1>
           </div>
         </header>
 
         <div className="space-y-2">
           <button
             onClick={() => navigate(`/decks/${mainDeck.id}`)}
-            className="w-full p-6 bg-primary/10 rounded-xl flex items-center justify-between card-hover border border-primary/20"
+            className="w-full p-6 glass-card flex items-center justify-between card-hover"
             data-cy="main-deck-button"
           >
             <div className="text-left">
@@ -75,7 +75,7 @@ export default function DeckListPage() {
 
         <Button
           variant="outline"
-          className="w-full"
+          className="w-full bg-white text-primary hover:bg-white/90"
           onClick={() => setShowAllModules(!showAllModules)}
           data-cy="toggle-modules-button"
         >
@@ -86,26 +86,30 @@ export default function DeckListPage() {
         </Button>
 
         {showAllModules && (
-          <ScrollArea className="h-[400px] rounded-md border" data-cy="modules-scroll-area">
+          <ScrollArea className="h-[400px] rounded-md bg-white border" data-cy="modules-scroll-area">
             <div className="p-4 space-y-6">
               {otherCategories.map((category) => (
                 <div key={category.id} className="space-y-3" data-cy={`category-${category.id}`}>
-                  <h2 className="text-xl font-semibold" data-cy={`category-title-${category.id}`}>{category.title}</h2>
+                  <h2 className="text-xl font-semibold text-gray-800" data-cy={`category-title-${category.id}`}>
+                    {category.title}
+                  </h2>
                   <div className="space-y-2">
                     {category.decks.map((deck) => (
                       <button
                         key={deck.id}
                         onClick={() => navigate(`/decks/${deck.id}`)}
-                        className="w-full p-4 bg-card rounded-xl flex items-center justify-between card-hover border border-border"
+                        className="w-full p-4 glass-card flex items-center justify-between card-hover"
                         data-cy={`deck-button-${deck.id}`}
                       >
                         <div className="text-left">
-                          <h3 className="font-medium" data-cy={`deck-title-${deck.id}`}>{deck.title}</h3>
+                          <h3 className="font-medium text-gray-800" data-cy={`deck-title-${deck.id}`}>
+                            {deck.title}
+                          </h3>
                           <p className="text-sm text-muted-foreground" data-cy={`deck-count-${deck.id}`}>
                             {deck.cardCount} cards
                           </p>
                         </div>
-                        <ChevronRight className="text-muted-foreground" />
+                        <ChevronRight className="text-primary" />
                       </button>
                     ))}
                   </div>

@@ -82,7 +82,7 @@ export default function CardViewPage() {
   ];
 
   return (
-    <div className="min-h-screen p-4 flex flex-col" data-cy="card-view-container">
+    <div className="min-h-screen p-4 flex flex-col bg-background" data-cy="card-view-container">
       <header className="max-w-2xl mx-auto w-full mb-4">
         <div className="flex items-center justify-between gap-2">
           <div className="flex items-center gap-3">
@@ -92,7 +92,7 @@ export default function CardViewPage() {
               className="h-8 w-8"
               data-cy="logo-image"
             />
-            <h1 className="text-xl font-semibold" data-cy="card-progress">
+            <h1 className="text-xl font-semibold text-white" data-cy="card-progress">
               {currentCardIndex + 1} de {totalCards}
             </h1>
           </div>
@@ -100,7 +100,7 @@ export default function CardViewPage() {
             variant="ghost"
             size="icon"
             onClick={() => navigate("/decks")}
-            className="text-muted-foreground"
+            className="text-white hover:text-white/80"
             data-cy="back-button"
           >
             <ArrowLeft className="h-5 w-5" />
@@ -109,7 +109,7 @@ export default function CardViewPage() {
       </header>
 
       <div className="flex-1 flex flex-col items-center justify-center max-w-2xl mx-auto w-full gap-4">
-        <div className="w-full aspect-video sm:aspect-[4/3] bg-card rounded-2xl flex items-center justify-center p-8 relative overflow-hidden shadow-sm" data-cy="flashcard-container">
+        <div className="w-full aspect-video sm:aspect-[4/3] glass-card flex items-center justify-center p-8 relative overflow-hidden shadow-lg" data-cy="flashcard-container">
           <div 
             className={`w-full h-full absolute transition-transform duration-500 flex items-center justify-center ${
               showTranslation && !reviewOriginal
@@ -119,7 +119,7 @@ export default function CardViewPage() {
             data-cy="card-front"
           >
             <div className="w-full flex items-center justify-center text-center">
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center w-full" data-cy="english-text">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-800 w-full" data-cy="english-text">
                 {currentCard.english}
               </h2>
             </div>
@@ -133,7 +133,7 @@ export default function CardViewPage() {
             data-cy="card-back"
           >
             <div className="w-full flex items-center justify-center text-center">
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center w-full" data-cy="portuguese-text">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-800 w-full" data-cy="portuguese-text">
                 {currentCard.portuguese}
               </h2>
             </div>
