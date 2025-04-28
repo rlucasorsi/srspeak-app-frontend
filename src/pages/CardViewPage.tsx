@@ -24,9 +24,9 @@ export default function CardViewPage() {
 
   const { data: cards, isLoading } = useCards(deckId || '');
 
-  const currentCard = cards?.[currentCardIndex];
   const totalCards = cards?.length || 0;
-  const isStudyComplete = currentCardIndex >= totalCards;
+  const isStudyComplete = currentCardIndex >= totalCards && totalCards > 0;
+  const currentCard = cards?.[currentCardIndex];
 
   const handleDifficulty = (difficulty: string) => {
     setShowTranslation(false);
@@ -49,9 +49,13 @@ export default function CardViewPage() {
 
     if (currentCardIndex < (totalCards - 1)) {
       setCurrentCardIndex(prev => prev + 1);
+    } else {
+      // Ensure we set the index beyond the last card to trigger completion screen
+      setCurrentCardIndex(totalCards);
     }
   };
 
+  // Show loading screen while fetching cards
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -60,10 +64,12 @@ export default function CardViewPage() {
     );
   }
 
-  if (!currentCard && !isStudyComplete) {
+  // Show message if no cards found
+  if (!cards || cards.length === 0) {
     return <div className="min-h-screen flex items-center justify-center">No cards found</div>;
   }
 
+  // Show completion screen when all cards are reviewed
   if (isStudyComplete) {
     return <StudyCompleteScreen stats={stats} />;
   }
@@ -154,11 +160,11 @@ export default function CardViewPage() {
             </Button>
 
             <div className="w-full grid grid-cols-2 gap-3">
-              {difficultyButtons.map((btn, index) => (
+              {difficultyButtons.map((btn) => (
                 <Button 
                   key={btn.label}
                   className={`${btn.color} rounded-xl flex items-center justify-center gap-2 p-4`}
-                  onClick={() => handleDifficulty(btn.label.toLowerCase())}
+                  onClick={() => handleDifficulty(btn.value)}
                   data-cy={`difficulty-button-${btn.label.toLowerCase().replace(/\s+/g, '-')}`}
                 >
                   {btn.icon}

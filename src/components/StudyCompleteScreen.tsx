@@ -18,6 +18,8 @@ export function StudyCompleteScreen({ stats }: StudyCompleteScreenProps) {
   const navigate = useNavigate();
   const totalCards = stats.veryEasy + stats.easy + stats.hard + stats.forgot;
 
+  console.log("Rendering StudyCompleteScreen with stats:", stats);
+
   return (
     <div className="min-h-screen p-4 flex flex-col items-center justify-center text-center gap-8">
       <div className="space-y-4">
