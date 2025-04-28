@@ -1,10 +1,11 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
  
 @layer base {
   :root {
-    --background: 222 47% 11%;
+    --background: 187 45% 32%;
     --foreground: 215 25% 98%;
     --card: 0 0% 100%;
     --card-foreground: 215 25% 10%;
@@ -50,5 +51,6 @@
 }
 
 .glass-card {
-  @apply bg-white/10 backdrop-blur-md border border-white/20 shadow-lg;
+  @apply bg-white backdrop-blur-md border border-white/20 shadow-lg;
 }
+
