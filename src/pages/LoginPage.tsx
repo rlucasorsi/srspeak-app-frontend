@@ -35,7 +35,7 @@ export default function LoginPage() {
                 placeholder="E-mail"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="pl-10 bg-white/5 border-white/10 text-foreground"
+                className="pl-10 bg-white/20 border-white/20 text-foreground focus:border-white/30"
                 required
                 data-cy="login-email-input"
               />
@@ -48,7 +48,7 @@ export default function LoginPage() {
                 placeholder="Senha"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="pl-10 bg-white/5 border-white/10 text-foreground"
+                className="pl-10 bg-white/20 border-white/20 text-foreground focus:border-white/30"
                 required
                 data-cy="login-password-input"
               />
