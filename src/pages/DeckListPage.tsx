@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { ChevronRight, ChevronDown, ChevronUp } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -53,7 +54,7 @@ export default function DeckListPage() {
               className="h-12 w-12"
               data-cy="deck-list-logo"
             />
-            <h1 className="text-2xl font-bold text-white" data-cy="deck-list-title">Meu baralho</h1>
+            <h1 className="text-2xl font-bold text-gray-900" data-cy="deck-list-title">Meu baralho</h1>
           </div>
         </header>
 
@@ -64,8 +65,8 @@ export default function DeckListPage() {
             data-cy="main-deck-button"
           >
             <div className="text-left">
-              <h3 className="text-lg font-semibold text-primary" data-cy="main-deck-title">{mainDeck.title}</h3>
-              <p className="text-sm text-muted-foreground" data-cy="main-deck-count">
+              <h3 className="text-lg font-semibold text-gray-900" data-cy="main-deck-title">{mainDeck.title}</h3>
+              <p className="text-sm text-gray-700" data-cy="main-deck-count">
                 {mainDeck.cardCount} cards
               </p>
             </div>
@@ -75,7 +76,7 @@ export default function DeckListPage() {
 
         <Button
           variant="outline"
-          className="w-full bg-white text-primary hover:bg-white/90"
+          className="w-full bg-white text-gray-900 hover:bg-white/90"
           onClick={() => setShowAllModules(!showAllModules)}
           data-cy="toggle-modules-button"
         >
@@ -90,7 +91,7 @@ export default function DeckListPage() {
             <div className="p-4 space-y-6">
               {otherCategories.map((category) => (
                 <div key={category.id} className="space-y-3" data-cy={`category-${category.id}`}>
-                  <h2 className="text-xl font-semibold text-gray-800" data-cy={`category-title-${category.id}`}>
+                  <h2 className="text-xl font-semibold text-gray-900" data-cy={`category-title-${category.id}`}>
                     {category.title}
                   </h2>
                   <div className="space-y-2">
@@ -102,10 +103,10 @@ export default function DeckListPage() {
                         data-cy={`deck-button-${deck.id}`}
                       >
                         <div className="text-left">
-                          <h3 className="font-medium text-gray-800" data-cy={`deck-title-${deck.id}`}>
+                          <h3 className="font-medium text-gray-900" data-cy={`deck-title-${deck.id}`}>
                             {deck.title}
                           </h3>
-                          <p className="text-sm text-muted-foreground" data-cy={`deck-count-${deck.id}`}>
+                          <p className="text-sm text-gray-700" data-cy={`deck-count-${deck.id}`}>
                             {deck.cardCount} cards
                           </p>
                         </div>

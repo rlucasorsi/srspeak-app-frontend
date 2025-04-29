@@ -24,7 +24,7 @@ export default function LoginPage() {
                  alt="SRSpeak Logo" 
                  className="h-32 w-32 mb-4"
                  data-cy="login-logo" />
-            <h1 className="text-2xl font-semibold text-foreground" data-cy="login-title">Faça login</h1>
+            <h1 className="text-2xl font-semibold text-gray-900" data-cy="login-title">Faça login</h1>
           </div>
           
           <form onSubmit={handleLogin} className="space-y-4" data-cy="login-form">
@@ -35,7 +35,7 @@ export default function LoginPage() {
                 placeholder="E-mail"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="pl-10 bg-white/20 border-white/20 text-foreground focus:border-white/30"
+                className="pl-10 bg-white/20 border-white/20 text-gray-900 focus:border-white/30"
                 required
                 data-cy="login-email-input"
               />
@@ -48,7 +48,7 @@ export default function LoginPage() {
                 placeholder="Senha"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="pl-10 bg-white/20 border-white/20 text-foreground focus:border-white/30"
+                className="pl-10 bg-white/20 border-white/20 text-gray-900 focus:border-white/30"
                 required
                 data-cy="login-password-input"
               />
