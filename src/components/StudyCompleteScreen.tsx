@@ -23,30 +23,32 @@ export function StudyCompleteScreen({ stats }: StudyCompleteScreenProps) {
 
   return (
     <div className="min-h-screen p-4 flex flex-col items-center justify-center text-center gap-8">
-      <div className="space-y-4">
-        <h1 className="text-3xl font-bold text-gray-900">Parabéns! 🎉</h1>
-        <p className="text-gray-700 text-lg">
-          Você completou a revisão de {totalCards} cards
-        </p>
-      </div>
-
       <Card className="glass-card p-8 w-full max-w-md shadow-lg">
-        <div className="grid grid-cols-2 gap-4 w-full">
-          <div className="bg-green-500/10 p-4 rounded-lg">
-            <div className="font-semibold text-2xl text-green-500">{stats.veryEasy}</div>
-            <div className="text-sm text-gray-700">Muito Fácil</div>
+        <div className="space-y-6">
+          <div className="space-y-2">
+            <h1 className="text-3xl font-bold text-gray-900">Parabéns! 🎉</h1>
+            <p className="text-gray-700 text-lg">
+              Você completou a revisão de {totalCards} cards
+            </p>
           </div>
-          <div className="bg-emerald-500/10 p-4 rounded-lg">
-            <div className="font-semibold text-2xl text-emerald-500">{stats.easy}</div>
-            <div className="text-sm text-gray-700">Fácil</div>
-          </div>
-          <div className="bg-orange-500/10 p-4 rounded-lg">
-            <div className="font-semibold text-2xl text-orange-500">{stats.hard}</div>
-            <div className="text-sm text-gray-700">Difícil</div>
-          </div>
-          <div className="bg-red-500/10 p-4 rounded-lg">
-            <div className="font-semibold text-2xl text-red-500">{stats.forgot}</div>
-            <div className="text-sm text-gray-700">Não lembro</div>
+
+          <div className="grid grid-cols-2 gap-4 w-full">
+            <div className="bg-green-500/20 p-4 rounded-lg">
+              <div className="font-semibold text-2xl text-green-700">{stats.veryEasy}</div>
+              <div className="text-sm text-gray-800">Muito Fácil</div>
+            </div>
+            <div className="bg-emerald-500/20 p-4 rounded-lg">
+              <div className="font-semibold text-2xl text-emerald-700">{stats.easy}</div>
+              <div className="text-sm text-gray-800">Fácil</div>
+            </div>
+            <div className="bg-orange-500/20 p-4 rounded-lg">
+              <div className="font-semibold text-2xl text-orange-700">{stats.hard}</div>
+              <div className="text-sm text-gray-800">Difícil</div>
+            </div>
+            <div className="bg-red-500/20 p-4 rounded-lg">
+              <div className="font-semibold text-2xl text-red-700">{stats.forgot}</div>
+              <div className="text-sm text-gray-800">Não lembro</div>
+            </div>
           </div>
         </div>
       </Card>
