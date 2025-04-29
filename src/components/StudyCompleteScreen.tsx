@@ -2,6 +2,7 @@
 import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
+import { Card } from "@/components/ui/card";
 
 interface StudyStats {
   veryEasy: number;
@@ -23,30 +24,32 @@ export function StudyCompleteScreen({ stats }: StudyCompleteScreenProps) {
   return (
     <div className="min-h-screen p-4 flex flex-col items-center justify-center text-center gap-8">
       <div className="space-y-4">
-        <h1 className="text-3xl font-bold">Parabéns! 🎉</h1>
-        <p className="text-muted-foreground text-lg">
+        <h1 className="text-3xl font-bold text-gray-900">Parabéns! 🎉</h1>
+        <p className="text-gray-700 text-lg">
           Você completou a revisão de {totalCards} cards
         </p>
       </div>
 
-      <div className="grid grid-cols-2 gap-4 w-full max-w-md">
-        <div className="bg-green-500/10 p-4 rounded-lg">
-          <div className="font-semibold text-2xl text-green-500">{stats.veryEasy}</div>
-          <div className="text-sm text-muted-foreground">Muito Fácil</div>
+      <Card className="glass-card p-8 w-full max-w-md shadow-lg">
+        <div className="grid grid-cols-2 gap-4 w-full">
+          <div className="bg-green-500/10 p-4 rounded-lg">
+            <div className="font-semibold text-2xl text-green-500">{stats.veryEasy}</div>
+            <div className="text-sm text-gray-700">Muito Fácil</div>
+          </div>
+          <div className="bg-emerald-500/10 p-4 rounded-lg">
+            <div className="font-semibold text-2xl text-emerald-500">{stats.easy}</div>
+            <div className="text-sm text-gray-700">Fácil</div>
+          </div>
+          <div className="bg-orange-500/10 p-4 rounded-lg">
+            <div className="font-semibold text-2xl text-orange-500">{stats.hard}</div>
+            <div className="text-sm text-gray-700">Difícil</div>
+          </div>
+          <div className="bg-red-500/10 p-4 rounded-lg">
+            <div className="font-semibold text-2xl text-red-500">{stats.forgot}</div>
+            <div className="text-sm text-gray-700">Não lembro</div>
+          </div>
         </div>
-        <div className="bg-emerald-500/10 p-4 rounded-lg">
-          <div className="font-semibold text-2xl text-emerald-500">{stats.easy}</div>
-          <div className="text-sm text-muted-foreground">Fácil</div>
-        </div>
-        <div className="bg-orange-500/10 p-4 rounded-lg">
-          <div className="font-semibold text-2xl text-orange-500">{stats.hard}</div>
-          <div className="text-sm text-muted-foreground">Difícil</div>
-        </div>
-        <div className="bg-red-500/10 p-4 rounded-lg">
-          <div className="font-semibold text-2xl text-red-500">{stats.forgot}</div>
-          <div className="text-sm text-muted-foreground">Não lembro</div>
-        </div>
-      </div>
+      </Card>
 
       <Button
         onClick={() => navigate("/decks")}
