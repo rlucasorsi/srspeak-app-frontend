@@ -17,10 +17,10 @@ export default function WelcomePage() {
               className="h-32 w-32 mb-4"
               data-cy="welcome-logo"
             />
-            <h1 className="text-2xl font-semibold text-foreground mb-2" data-cy="welcome-title">
+            <h1 className="text-2xl font-semibold text-gray-900 mb-2" data-cy="welcome-title">
               Bem-vindo ao SRSpeak
             </h1>
-            <p className="text-lg text-center text-muted-foreground mb-8" data-cy="welcome-description">
+            <p className="text-lg text-center text-gray-700 mb-8" data-cy="welcome-description">
               Pratique seu vocabulário em inglês com repetição espaçada
             </p>
           </div>
@@ -30,8 +30,8 @@ export default function WelcomePage() {
               <div className="flex items-center gap-2">
                 <Clock className="text-[#00A5A5]" />
                 <div>
-                  <p className="text-sm text-muted-foreground">Cards para hoje</p>
-                  <p className="text-2xl font-bold text-foreground" data-cy="today-cards-count">15</p>
+                  <p className="text-sm text-gray-700">Cards para hoje</p>
+                  <p className="text-2xl font-bold text-gray-900" data-cy="today-cards-count">15</p>
                 </div>
               </div>
             </div>
@@ -40,8 +40,8 @@ export default function WelcomePage() {
               <div className="flex items-center gap-2">
                 <Calendar className="text-[#00A5A5]" />
                 <div>
-                  <p className="text-sm text-muted-foreground">Dias seguidos</p>
-                  <p className="text-2xl font-bold text-foreground" data-cy="streak-count">3</p>
+                  <p className="text-sm text-gray-700">Dias seguidos</p>
+                  <p className="text-2xl font-bold text-gray-900" data-cy="streak-count">3</p>
                 </div>
               </div>
             </div>
